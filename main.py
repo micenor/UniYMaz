@@ -1,4 +1,4 @@
-import sys,getopt
+import sys,getopt,Character
 if __name__ == '__main__':
     argument_list = sys.argv[1:]
     short_options = "p:s:"
@@ -33,3 +33,22 @@ if __name__ == '__main__':
         print("Finishing program.")
         sys.exit(2)
     print(("A game with %s stage(s) will be set for %s player(s)") % (numStages,numPlayers))
+    print("***********      AVAILABLE CHARACTERS        ***********")
+    Character.Character.Bookworn.printInfo(self=Character)
+    Character.Character.Worker.printInfo(self=Character)
+    Character.Character.Whatsapper.printInfo(self=Character)
+    Character.Character.Procrastinator.printInfo(self=Character)
+    userCharacters = []
+    for i in range(numPlayers):
+        print("Player",i+1,".Please, choose a character (1-4): ",end="")
+        option = input()
+        if (option=="1"): userCharacters.append(Character.Character.Bookworn)
+        elif (option=="2"): userCharacters.append(Character.Character.Worker)
+        elif (option=="3"): userCharacters.append(Character.Character.Whatsapper)
+        elif (option=="4"): userCharacters.append(Character.Character.Procrastinator)
+        else: print("That option does not exist")
+
+
+
+
+
