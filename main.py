@@ -47,13 +47,21 @@ if __name__ == '__main__':
         print("Player",i+1,". Please, choose a character (1-4): ",end="")
         option = input()
         if (option=="1"):
-            userCharacters.append(Character.Character.Bookworn)
+            character = Character.Character.Bookworn()
+            character.player = i+1
+            userCharacters.append(character)
         elif (option=="2"):
-            userCharacters.append(Character.Character.Worker)
+            character = Character.Character.Worker()
+            character.player = i + 1
+            userCharacters.append(character)
         elif (option=="3"):
-            userCharacters.append(Character.Character.Whatsapper)
+            character = Character.Character.Whatsapper()
+            character.player = i + 1
+            userCharacters.append(character)
         elif (option=="4"):
-            userCharacters.append(Character.Character.Procrastinator)
+            character = Character.Character.Procrastinator()
+            character.player = i + 1
+            userCharacters.append(character)
         else: print("That option does not exist")
     if (userCharacters.__len__() >1):
         print("********************************************************")
@@ -61,9 +69,10 @@ if __name__ == '__main__':
         for character in userCharacters:
             print(i,end=".- ")
             i+=1
-            print(character.printInfo(self=character.__class__))
+            print(character.printInfo())
         print("********************************************************")
-    for i in range(numStages): Game.Game.executeStage(self=Game.Game,i=i+1)
+    for i in range(numStages): Game.Game.executeStage(self=Game.Game,stage=i+1,characters=userCharacters)
+    print("All the stages have been cleared. You won the game!")
 
 
 

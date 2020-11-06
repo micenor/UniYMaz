@@ -2,6 +2,8 @@ class Character():
     class Bookworn():
         life = 25
         damage = 9
+        player = 0
+        name = "Bookworn"
         """implementar habilidad"""
         def printInfo(self):
             print("The bookworn -> Stats 25 HP and 9DMG")
@@ -10,6 +12,8 @@ class Character():
     class Worker():
         life = 40
         damage = 10
+        player = 0
+        name = "Worker"
         """implementar habilidad"""
         def printInfo(self):
             print("The worker -> Stats: 40HP and 10DMG")
@@ -18,6 +22,8 @@ class Character():
     class Whatsapper():
         life = 20
         damage = 6
+        player = 0
+        name = "Whatsapper"
         """implementar Habilidad"""
         def printInfo(self):
             print("The whatsapper -> Stats: 20HP and 6DMG")
@@ -26,6 +32,8 @@ class Character():
     class Procrastinator():
         life = 30
         damage = 6
+        player = 0
+        name = "Procrastinator"
         """implementar pasiva"""
         def printInfo(self):
             print("The procrastinator-> Stats: 30HP and 6DMG")
