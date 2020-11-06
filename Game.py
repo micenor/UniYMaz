@@ -3,7 +3,7 @@ from random import choice,randrange
 class Game():
     def executeStage(self, stage,characters):
         available_characters = [Character.Character.Bookworn,Character.Character.Worker,Character.Character.Whatsapper,Character.Character.Procrastinator]
-        available_enemies = [Enemy.Enemy.Partial_Exam(), Enemy.Enemy.Theoretical_Class(), Enemy.Enemy.Teacher()]
+        available_enemies = [Enemy.Enemy.Partial_Exam, Enemy.Enemy.Theoretical_Class, Enemy.Enemy.Teacher]
         if (stage == 1): alive_characters = characters
         if (stage == 4): available_enemies.append(Enemy.Enemy.Final_Exam())
         stage_enemies = []
@@ -15,10 +15,10 @@ class Game():
         print("    ++++++++++++++++++++++++++++++++++++++")
         for n in range(4):
             enemy = choice(available_enemies)
-            stage_enemies.append(enemy)
+            stage_enemies.append(enemy())
             print(("    %s: Stats: %iHP and %iDMG") % (enemy.name, enemy.life, enemy.damage))
         print("    ++++++++++++++++++++++++++++++++++++++")
-        while((stage_enemies.__len__()!=0) and (alive_characters.__len__())):
+        while((stage_enemies.__len__()!=0) and (alive_characters.__len__()!=0)):
             print("    ------------------------")
             print("    -    PLAYERS TURN      -")
             print("    ------------------------")

@@ -69,7 +69,7 @@ if __name__ == '__main__':
         for character in userCharacters:
             print(i,end=".- ")
             i+=1
-            print(character.printInfo())
+            character.printInfo()
         print("********************************************************")
     for i in range(numStages): Game.Game.executeStage(self=Game.Game,stage=i+1,characters=userCharacters)
     print("All the stages have been cleared. You won the game!")
