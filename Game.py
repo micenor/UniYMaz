@@ -32,7 +32,7 @@ class Game():
                         else: break
                     enemy_target = choice(stage_enemies)
                     if (option=="A"):
-                        damage = randrange(character.damage) + 1
+                        damage = randrange(character.damage + 1)
                         enemy_target.life = enemy_target.life - damage
                         print(("%s (Player %i) did %i damage to %s. %s has %iHP left. ") % (character.name, character.player,damage,enemy_target.name,enemy_target.name,enemy_target.life))
                         if (enemy_target.life<=0):
@@ -47,7 +47,7 @@ class Game():
                     character_target = choice(alive_characters)
                     option = choice(["A"])
                     if (option == "A"):
-                        damage = randrange(enemy.damage) + 1
+                        damage = randrange(enemy.damage + 1)
                         character_target.life = character_target.life - damage
                         print(("%s did %i damage to Player %i (%s). Player %s has %iHP left.") % (enemy.name, damage, character_target.player, character_target.name,character_target.player, character_target.life))
                         if (character_target.life <= 0):
