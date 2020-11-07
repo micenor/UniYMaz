@@ -2,7 +2,6 @@ import Enemy,time,sys,Character,math
 from random import choice,randrange
 class Game():
     def executeStage(self, numStages,characters):
-        available_characters = [Character.Character.Bookworn,Character.Character.Worker,Character.Character.Whatsapper,Character.Character.Procrastinator]
         available_enemies = [Enemy.Enemy.Partial_Exam, Enemy.Enemy.Theoretical_Class, Enemy.Enemy.Teacher]
         alive_characters = characters
         for i in (range(1,numStages+1)):
@@ -57,16 +56,13 @@ class Game():
                         else:
                             break
             for character in alive_characters:
-                for character_class in available_characters:
-                    if ((character.__class__ == character_class)):
-                        if ((character.life + (character_class.life/4)>=character_class.life)):
-                            character.life = character_class.life
-                            break
-                        else:
-                            character.life = math.ceil(character.life + character_class.life / 4)
-                            break
+                character_class = character.__class__
+                if ((character.life + (character_class.life/4)>=character_class.life)):
+                    character.life = character_class.life
+                else:
+                    character.life = math.ceil(character.life + character_class.life / 4)
             if(len(stage_enemies)==0): print("Stage clear, all enemies defeated")
-            if(len(alive_characters)==0):
+            else:
                 print("All characters have been defeated. Try again.")
                 sys.exit(2)
         print("All the stages have been cleared. You won the game!")
