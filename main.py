@@ -63,7 +63,7 @@ if __name__ == '__main__':
             character.player = i + 1
             userCharacters.append(character)
         else: print("That option does not exist")
-    if (userCharacters.__len__() >1):
+    if (len(userCharacters) >1):
         print("********************************************************")
         i = 1
         for character in userCharacters:

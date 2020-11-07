@@ -18,12 +18,12 @@ class Game():
             stage_enemies.append(enemy())
             print(("    %s: Stats: %iHP and %iDMG") % (enemy.name, enemy.life, enemy.damage))
         print("    ++++++++++++++++++++++++++++++++++++++")
-        while((stage_enemies.__len__()!=0) and (alive_characters.__len__()!=0)):
+        while((len(stage_enemies)!=0) and (len(alive_characters)!=0)):
             print("    ------------------------")
             print("    -    PLAYERS TURN      -")
             print("    ------------------------")
             for character in alive_characters:
-                if(stage_enemies.__len__()!=0):
+                if(len(stage_enemies)!=0):
                     while True:
                         print(("%s (Player %i). What are you going to do? ((A)ttack/(S)kill)") % (character.name,character.player))
                         option = input().upper()
@@ -38,7 +38,7 @@ class Game():
                         if (enemy_target.life<=0):
                             stage_enemies.remove(enemy_target)
                             print("The enemy has died.")
-            if(stage_enemies.__len__()!=0):
+            if(len(stage_enemies)!=0):
                 print("    ------------------------")
                 print("    -    MONSTERS TURN     -")
                 print("    ------------------------")
@@ -60,8 +60,8 @@ class Game():
                     character.life = character_class.life
                 else:
                         character.life = character.life + character_class.life / 4
-        if(stage_enemies.__len__()==0): print("Stage clear, all enemies defeated")
-        if(alive_characters.__len__()==0):
+        if(len(stage_enemies)==0): print("Stage clear, all enemies defeated")
+        if(len(alive_characters)==0):
             print("All characters have been defeated. Try again.")
             sys.exit(2)
 
