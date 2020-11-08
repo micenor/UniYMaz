@@ -6,6 +6,7 @@ class Character():
         damage = 9
         player = 0
         name = "Bookworn"
+<<<<<<< HEAD
         cooldown = 0
         def ability(self,game):
             if (self.cooldown==0):
@@ -34,10 +35,12 @@ class Character():
             else:
                 print("The skill is currently in cooldown for %s more rounds." % (self.cooldown))
                 return False
+=======
+        """implementar habilidad"""
+>>>>>>> parent of c1897bc... Ability bookworm
         def printInfo(self):
             print("The bookworn -> Stats 25 HP and 9DMG")
             print("         Skill: Revives one player (4 rounds)")
-
 
     class Worker():
         life = 40

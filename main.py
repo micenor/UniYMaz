@@ -71,7 +71,7 @@ if __name__ == '__main__':
             i+=1
             character.printInfo()
         print("********************************************************")
-    Game.Game().executeStage(numStages=numStages,characters=userCharacters)
+    Game.Game.executeStage(self=Game.Game,numStages=numStages,characters=userCharacters)
 
 
 

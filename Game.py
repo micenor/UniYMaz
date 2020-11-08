@@ -1,14 +1,19 @@
 import Enemy,sys,math
 from random import choice,randrange
 class Game():
+<<<<<<< HEAD
     characters_list=[]
     stage_enemies = []
     round
+<<<<<<< Updated upstream
+=======
+=======
+>>>>>>> parent of c1897bc... Ability bookworm
+>>>>>>> Stashed changes
     def executeStage(self, numStages,characters):
         round = 0
         available_enemies = [Enemy.Enemy.Partial_Exam, Enemy.Enemy.Theoretical_Class, Enemy.Enemy.Teacher]
         alive_characters = characters
-        self.characters_list = characters
         for i in (range(1,numStages+1)):
             self.stage_enemies.clear()
             if (i == 4): available_enemies.append(Enemy.Enemy.Final_Exam)
@@ -35,9 +40,6 @@ class Game():
                             option = input().upper()
                             if ((option!="A") and (option!="S")):
                                 print("That option does not exist, ((A)ttack/(S)kill)")
-                            elif (option == "S") :
-                                if character.ability(self):
-                                    break
                             else: break
                         enemy_target = choice(self.stage_enemies)
                         if (option=="A"):
