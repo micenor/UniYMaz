@@ -20,7 +20,8 @@ class Character():
                             if (1 <= choice<= len(dead)):
                                 chosen = dead[choice-1]
                                 chosen.life = chosen.__class__.life
-                                break
+                                print("The ",self.name ," (Player ", chosen.player," ) has been revived.")
+                                return True
                             else:
                                 print("Incorrect choice. Choice must be between 1 and ",len(dead),".",end=" ")
                         except:

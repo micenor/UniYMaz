@@ -2,10 +2,11 @@ import Enemy,time,sys,Character,math
 from random import choice,randrange
 class Game():
     characters_list=[]
+    alive_characters=0
     def executeStage(self, numStages,characters):
         available_enemies = [Enemy.Enemy.Partial_Exam, Enemy.Enemy.Theoretical_Class, Enemy.Enemy.Teacher]
-        alive_characters = characters
         self.characters_list = characters
+        self.alive_characters= len(self.characters_list)
         for i in (range(1,numStages+1)):
             if (i == 4): available_enemies.append(Enemy.Enemy.Final_Exam)
             stage_enemies = []
@@ -20,11 +21,11 @@ class Game():
                 stage_enemies.append(enemy())
                 print(("    %s: Stats: %iHP and %iDMG") % (enemy.name, enemy.life, enemy.damage))
             print("    ++++++++++++++++++++++++++++++++++++++")
-            while((len(stage_enemies)!=0) and (len(alive_characters)!=0)):
+            while((len(stage_enemies)!=0) and (len([char for char in self.characters_list if char.life > 0]) != 0)):
                 print("    ------------------------")
                 print("    -    PLAYERS TURN      -")
                 print("    ------------------------")
-                for character in alive_characters:
+                for character in [char for char in self.characters_list if char.life > 0]:
                     if(len(stage_enemies)!=0):
                         while True:
                             print(("%s (Player %i). What are you going to do? ((A)ttack/(S)kill)") % (character.name,character.player))
@@ -48,24 +49,16 @@ class Game():
                     print("    -    MONSTERS TURN     -")
                     print("    ------------------------")
                     for enemy in stage_enemies:
-                        if (len(alive_characters)!=0):
-                            character_target = choice(alive_characters)
-                            option = choice(["A"])
-                            if (option == "A"):
-                                damage = randrange(enemy.damage + 1)
-                                character_target.life = character_target.life - damage
-                                print(("%s did %i damage to Player %i (%s). Player %s has %iHP left.") % (enemy.name, damage, character_target.player, character_target.name,character_target.player, character_target.life))
-                                if (character_target.life <= 0):
-                                    alive_characters.remove(character_target)
-                                    print(("Player %i has died") % character_target.player)
+                        if (len([character for character in self.characters_list if character.life > 0])!=0):
+                           enemy.attack(self)
                         else:
                             break
-            for character in alive_characters:
+            for character in [char for char in self.characters_list if char.life > 0]:
                 character_class = character.__class__
                 if ((character.life + (character_class.life/4)>=character_class.life)):
                     character.life = character_class.life
                 else:
-                    character.life = math.ceil(character.life + character_class.life / 4)
+                    character.life = character.life + character_class.life / 4
             if(len(stage_enemies)==0): print("Stage clear, all enemies defeated")
             else:
                 print("All characters have been defeated. Try again.")
