@@ -1,15 +1,18 @@
-import Enemy,time,sys,Character,math
+import Enemy,sys,math
 from random import choice,randrange
 class Game():
     characters_list=[]
     alive_characters=0
+    stage_enemies = []
+    round
     def executeStage(self, numStages,characters):
+        round = 0
         available_enemies = [Enemy.Enemy.Partial_Exam, Enemy.Enemy.Theoretical_Class, Enemy.Enemy.Teacher]
         self.characters_list = characters
         self.alive_characters= len(self.characters_list)
         for i in (range(1,numStages+1)):
+            self.stage_enemies.clear()
             if (i == 4): available_enemies.append(Enemy.Enemy.Final_Exam)
-            stage_enemies = []
             print("         ************************")
             print(("         *       STAGE %i       *") % i)
             print("         ************************")
@@ -18,10 +21,11 @@ class Game():
             print("    ++++++++++++++++++++++++++++++++++++++")
             for n in range(4):
                 enemy = choice(available_enemies)
-                stage_enemies.append(enemy())
+                self.stage_enemies.append(enemy())
                 print(("    %s: Stats: %iHP and %iDMG") % (enemy.name, enemy.life, enemy.damage))
             print("    ++++++++++++++++++++++++++++++++++++++")
             while((len(stage_enemies)!=0) and (len([char for char in self.characters_list if char.life > 0]) != 0)):
+                self.round += 1
                 print("    ------------------------")
                 print("    -    PLAYERS TURN      -")
                 print("    ------------------------")
@@ -36,15 +40,15 @@ class Game():
                                 if character.ability(self):
                                     break
                             else: break
-                        enemy_target = choice(stage_enemies)
+                        enemy_target = choice(self.stage_enemies)
                         if (option=="A"):
                             damage = randrange(character.damage + 1)
                             enemy_target.life = enemy_target.life - damage
                             print(("%s (Player %i) did %i damage to %s. %s has %iHP left. ") % (character.name, character.player,damage,enemy_target.name,enemy_target.name,enemy_target.life))
                             if (enemy_target.life<=0):
-                                stage_enemies.remove(enemy_target)
+                                self.stage_enemies.remove(enemy_target)
                                 print("The enemy has died.")
-                if((len(stage_enemies)!=0)):
+                if((len(self.stage_enemies)!=0)):
                     print("    ------------------------")
                     print("    -    MONSTERS TURN     -")
                     print("    ------------------------")
