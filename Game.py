@@ -1,9 +1,11 @@
 import Enemy,time,sys,Character,math
 from random import choice,randrange
 class Game():
+    characters_list=[]
     def executeStage(self, numStages,characters):
         available_enemies = [Enemy.Enemy.Partial_Exam, Enemy.Enemy.Theoretical_Class, Enemy.Enemy.Teacher]
         alive_characters = characters
+        self.characters_list = characters
         for i in (range(1,numStages+1)):
             if (i == 4): available_enemies.append(Enemy.Enemy.Final_Exam)
             stage_enemies = []
@@ -29,6 +31,9 @@ class Game():
                             option = input().upper()
                             if ((option!="A") and (option!="S")):
                                 print("That option does not exist, ((A)ttack/(S)kill)")
+                            elif (option == "S") :
+                                if character.ability(self):
+                                    break
                             else: break
                         enemy_target = choice(stage_enemies)
                         if (option=="A"):
