@@ -1,12 +1,16 @@
-import Enemy,sys,math
-from random import choice,randrange
+from random import choice, randrange
+
+import Enemy
+import sys
+
+
 class Game():
     characters_list=[]
     alive_characters=0
     stage_enemies = []
     round
     def executeStage(self, numStages,characters):
-        round = 0
+        self.round = 0
         available_enemies = [Enemy.Enemy.Partial_Exam, Enemy.Enemy.Theoretical_Class, Enemy.Enemy.Teacher]
         self.characters_list = characters
         self.alive_characters= len(self.characters_list)
@@ -24,13 +28,13 @@ class Game():
                 self.stage_enemies.append(enemy())
                 print(("    %s: Stats: %iHP and %iDMG") % (enemy.name, enemy.life, enemy.damage))
             print("    ++++++++++++++++++++++++++++++++++++++")
-            while((len(stage_enemies)!=0) and (len([char for char in self.characters_list if char.life > 0]) != 0)):
+            while((len(self.stage_enemies)!=0) and (len([char for char in self.characters_list if char.life > 0]) != 0)):
                 self.round += 1
                 print("    ------------------------")
                 print("    -    PLAYERS TURN      -")
                 print("    ------------------------")
                 for character in [char for char in self.characters_list if char.life > 0]:
-                    if(len(stage_enemies)!=0):
+                    if(len(self.stage_enemies)!=0):
                         while True:
                             print(("%s (Player %i). What are you going to do? ((A)ttack/(S)kill)") % (character.name,character.player))
                             option = input().upper()
@@ -52,7 +56,7 @@ class Game():
                     print("    ------------------------")
                     print("    -    MONSTERS TURN     -")
                     print("    ------------------------")
-                    for enemy in stage_enemies:
+                    for enemy in self.stage_enemies:
                         if (len([character for character in self.characters_list if character.life > 0])!=0):
                            enemy.attack(self)
                         else:
@@ -63,7 +67,7 @@ class Game():
                     character.life = character_class.life
                 else:
                     character.life = character.life + character_class.life / 4
-            if(len(stage_enemies)==0): print("Stage clear, all enemies defeated")
+            if(len(self.stage_enemies)==0): print("Stage clear, all enemies defeated")
             else:
                 print("All characters have been defeated. Try again.")
                 sys.exit(2)
