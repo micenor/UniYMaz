@@ -34,7 +34,7 @@ class Enemy():
         name = "Theoretical Exam"
         def attack(self,game):
             character_target = choice([character for character in game.characters_list if character.life > 0])
-            damage = randrange(self.damage + 1)
+            damage = randrange(self.damage + 1) + game.actual_stage
             character_target.life = character_target.life - damage
             print(("%s did %i damage to Player %i (%s). Player %s has %iHP left.") % (
             self.name, damage, character_target.player, character_target.name, character_target.player,

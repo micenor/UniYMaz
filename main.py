@@ -44,25 +44,30 @@ if __name__ == '__main__':
     Character.Character.Procrastinator.printInfo(self=Character)
     userCharacters = []
     for i in range(numPlayers):
-        print("Player",i+1,". Please, choose a character (1-4): ",end="")
-        option = input()
-        if (option=="1"):
-            character = Character.Character.Bookworn()
-            character.player = i+1
-            userCharacters.append(character)
-        elif (option=="2"):
-            character = Character.Character.Worker()
-            character.player = i + 1
-            userCharacters.append(character)
-        elif (option=="3"):
-            character = Character.Character.Whatsapper()
-            character.player = i + 1
-            userCharacters.append(character)
-        elif (option=="4"):
-            character = Character.Character.Procrastinator()
-            character.player = i + 1
-            userCharacters.append(character)
-        else: print("That option does not exist")
+        while True:
+            print("Player",i+1,". Please, choose a character (1-4): ",end="")
+            option = input()
+            if (option=="1"):
+                character = Character.Character.Bookworn()
+                character.player = i+1
+                userCharacters.append(character)
+                break
+            elif (option=="2"):
+                character = Character.Character.Worker()
+                character.player = i + 1
+                userCharacters.append(character)
+                break
+            elif (option=="3"):
+                character = Character.Character.Whatsapper()
+                character.player = i + 1
+                userCharacters.append(character)
+                break
+            elif (option=="4"):
+                character = Character.Character.Procrastinator()
+                character.player = i + 1
+                userCharacters.append(character)
+                break
+            else: print("That option does not exist")
     if (len(userCharacters) >1):
         print("********************************************************")
         i = 1

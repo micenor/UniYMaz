@@ -36,6 +36,15 @@ class Character():
             else:
                 print("The skill is currently in cooldown for %s more rounds." % (self.cooldown))
                 return False
+        def attack(self,game):
+            enemy_target = choice([en for en in game.stage_enemies if en.life > 0])
+            damage = randrange(self.damage + 1)
+            enemy_target.life = enemy_target.life - damage
+            print(("%s (Player %i) did %i damage to %s. %s has %iHP left. ") % (
+            self.name, self.player, damage, enemy_target.name, enemy_target.name, enemy_target.life))
+            if (enemy_target.life <= 0):
+                print("The enemy has died.")
+
         def printInfo(self):
             print("The bookworn -> Stats 25 HP and 9DMG")
             print("         Skill: Revives one player (4 rounds)")
@@ -56,9 +65,20 @@ class Character():
                 if (enemy_target.life <= 0):
                     print("The enemy has died.")
                 self.cooldown = 3
+                return True
             else:
                 print("The skill is currently in cooldown for %s more rounds." % (self.cooldown))
                 return False
+
+        def attack(self,game):
+            enemy_target = choice([en for en in game.stage_enemies if en.life > 0])
+            damage = randrange(self.damage + 1)
+            enemy_target.life = enemy_target.life - damage
+            print(("%s (Player %i) did %i damage to %s. %s has %iHP left. ") % (
+            self.name, self.player, damage, enemy_target.name, enemy_target.name, enemy_target.life))
+            if (enemy_target.life <= 0):
+                print("The enemy has died.")
+
         def printInfo(self):
             print("The worker -> Stats: 40HP and 10DMG")
             print("         Skill: 1.5 * (DMG + DMG roll) damage to one enemy (3 rounds)")
@@ -72,7 +92,7 @@ class Character():
         cooldown = 0
         def ability(self,game):
             if (self.cooldown==0):
-                alive = [character for character in game.characters_list if character.life > 0]
+                alive = [hero for hero in game.characters_list if hero.life > 0]
                 while True:
                     i = 1
                     for character in alive :
@@ -80,11 +100,16 @@ class Character():
                         character.printInfo()
                         i += 1
                     try:
-                        choice = int(input("Who do you want to heal?: "))
+                        choice =1 #int(input("Who do you want to heal?: "))
                         if (1 <= choice <= len(alive)):
                             chosen = alive[choice - 1]
-                            chosen.life = 2*self.damage
+                            test = chosen.life + 2 * self.damage
+                            if test>chosen.__class__.life:
+                                chosen.life=chosen.__class__.life
+                            else:
+                                chosen.life += 2*self.damage
                             self.cooldown = 3
+                            return True
                             break
                         else:
                             print("Incorrect choice. Choice must be between 1 and ", len(alive), ".", end=" ")
@@ -93,6 +118,16 @@ class Character():
             else:
                 print("The skill is currently in cooldown for %s more rounds." % (self.cooldown))
                 return False
+
+        def attack(self,game):
+            enemy_target = choice([en for en in game.stage_enemies if en.life > 0])
+            damage = randrange(self.damage + 1)
+            enemy_target.life = enemy_target.life - damage
+            print(("%s (Player %i) did %i damage to %s. %s has %iHP left. ") % (
+            self.name, self.player, damage, enemy_target.name, enemy_target.name, enemy_target.life))
+            if (enemy_target.life <= 0):
+                print("The enemy has died.")
+
         def printInfo(self):
             print("The whatsapper -> Stats: 20HP and 6DMG")
             print("         Skill: Heals 2*DMG to one player (3 rounds)")
@@ -106,16 +141,29 @@ class Character():
         cooldown = 0
         def ability(self,game):
             if ((self.cooldown==0) and (game.round >=3)):
-                enemy_target = choice(game.stage_enemies)
-                damage = self.damage + randrange(self.damage + 1) + game.round
-                enemy_target.life = enemy_target.life - damage
-                print(("%s (Player %i) did %i damage to %s. %s has %iHP left. ") % (self.name, self.player, damage, enemy_target.name, enemy_target.name, enemy_target.life))
-                if (enemy_target.life <= 0):
-                    print("The enemy has died.")
-                self.cooldown = 3
+                damage = self.damage + randrange(self.damage + 1) + game.actual_stage
+                for enemy_target in [en for en in game.stage_enemies if en.life > 0]:
+                    enemy_target.life = enemy_target.life - damage
+                    print(("%s (Player %i) did %i damage to %s. %s has %iHP left. ") % (self.name, self.player, damage, enemy_target.name, enemy_target.name, enemy_target.life))
+                    if (enemy_target.life <= 0):
+                        print("The enemy has died.")
+                self.cooldown = -1
+                return True
             else:
-                print("The skill is currently in cooldown for %s more rounds." % (self.cooldown))
+                if game.round<3:
+                    print("The skill is currently in cooldown for %s more rounds." % (3-game.round))
+                else:
+                    print("The skill has been used, wait until next stage to use again.")
                 return False
+
+        def attack(self,game):
+            enemy_target = choice([en for en in game.stage_enemies if en.life > 0])
+            damage = randrange(self.damage + 1) + (game.round-1)
+            enemy_target.life = enemy_target.life - damage
+            print(("%s (Player %i) did %i damage to %s. %s has %iHP left. ") % (
+            self.name, self.player, damage, enemy_target.name, enemy_target.name, enemy_target.life))
+            if (enemy_target.life <= 0):
+                print("The enemy has died.")
 
         def printInfo(self):
             print("The procrastinator-> Stats: 30HP and 6DMG")
