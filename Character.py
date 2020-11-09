@@ -9,7 +9,7 @@ class Character():
         cooldown = 0
         def ability(self,game):
             if (self.cooldown==0):
-                dead = [char for char in game.characters_list if char.life <= 0]
+                dead = [character for character in game.characters_list if character.life <= 0]
                 if (len(dead)!=0):
                     while True:
                         i = 1
@@ -22,7 +22,7 @@ class Character():
                             if (1 <= choice<= len(dead)):
                                 chosen = dead[choice-1]
                                 chosen.life = chosen.__class__.life
-                                print("The ",chosen.name ," (Player ", chosen.player,") has been revived.")
+                                print(("The %s (Player %i) has been revived.") % (chosen.name,chosen.player))
                                 self.cooldown = 4
                                 return True
                                 break
@@ -37,7 +37,7 @@ class Character():
                 print("The skill is currently in cooldown for %s more rounds." % (self.cooldown))
                 return False
         def attack(self,game):
-            monster_target = choice([en for en in game.stage_enemies if en.life > 0])
+            monster_target = choice([enemy for enemy in game.stage_enemies if enemy.life > 0])
             damage = randrange(self.damage + 1)
             monster_target.life = monster_target.life - damage
             if (monster_target.life < 0):
@@ -72,7 +72,7 @@ class Character():
                 return False
 
         def attack(self,game):
-            monster_target = choice([en for en in game.stage_enemies if en.life > 0])
+            monster_target = choice([enemy for enemy in game.stage_enemies if enemy.life > 0])
             damage = randrange(self.damage + 1)
             monster_target.life = monster_target.life - damage
             if (monster_target.life < 0):
@@ -121,7 +121,7 @@ class Character():
                 return False
 
         def attack(self,game):
-            monster_target = choice([en for en in game.stage_enemies if en.life > 0])
+            monster_target = choice([enemy for enemy in game.stage_enemies if enemy.life > 0])
             damage = randrange(self.damage + 1)
             monster_target.life = monster_target.life - damage
             if (monster_target.life < 0):
@@ -159,7 +159,7 @@ class Character():
                 return False
 
         def attack(self,game):
-            monster_target = choice([en for en in game.stage_enemies if en.life > 0])
+            monster_target = choice([enemy for enemy in game.stage_enemies if enemy.life > 0])
             damage = randrange(self.damage + 1) + (game.round-1)
             monster_target.life = monster_target.life - damage
             if (monster_target.life < 0):

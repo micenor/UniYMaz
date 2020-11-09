@@ -8,7 +8,7 @@ class Game():
     characters_list=[]
     alive_characters=0
     stage_enemies = []
-    round
+    round = 0
     actual_stage=0
     def executeStage(self, numStages,characters):
         available_enemies = [Enemy.Enemy.Partial_Exam, Enemy.Enemy.Theoretical_Class, Enemy.Enemy.Teacher]
@@ -30,13 +30,13 @@ class Game():
                 self.stage_enemies.append(monster())
                 print(("    %s: Stats: %iHP and %iDMG") % (monster.name, monster.life, monster.damage))
             print("    ++++++++++++++++++++++++++++++++++++++")
-            while((len([en for en in self.stage_enemies if en.life > 0])!=0) and (len([char for char in self.characters_list if char.life > 0]) != 0)):
+            while((len([enemy for enemy in self.stage_enemies if enemy.life > 0])!=0) and (len([character for character in self.characters_list if character.life > 0]) != 0)):
                 self.round += 1
                 print("    ------------------------")
                 print("    -    PLAYERS TURN      -")
                 print("    ------------------------")
-                for hero in [char for char in self.characters_list if char.life > 0]:
-                    if(len([en for en in self.stage_enemies if en.life > 0])!=0):
+                for hero in [character for character in self.characters_list if character.life > 0]:
+                    if(len([enemy for enemy in self.stage_enemies if enemy.life > 0])!=0):
                         while True:
                             print(("%s (Player %i). What are you going to do? ((A)ttack/(S)kill)") % (hero.name,hero.player))
                             option = input().upper()
@@ -48,19 +48,18 @@ class Game():
                             else: break
                         if (option=="A"):
                             hero.attack(self)
-                print("    ------------------------")
-                print("    -    MONSTERS TURN     -")
-                print("    ------------------------")
-                for monster in [en for en in self.stage_enemies if en.life > 0]:
-                    if (len([hero for hero in self.characters_list if hero.life > 0])!=0):
-                       monster.attack(self)
-                    else:
-                        break
-#*****************************************End of round***************************************************
-                for hero in [char for char in self.characters_list if char.life > 0]:
-                    if hero.cooldown>0:
-                        hero.cooldown-=1
-#*****************************************End of stage***************************************************
+                if(len([enemy for enemy in self.stage_enemies if enemy.life > 0])!=0):
+                    print("    ------------------------")
+                    print("    -    MONSTERS TURN     -")
+                    print("    ------------------------")
+                    for monster in [enemy for enemy in self.stage_enemies if enemy.life > 0]:
+                        if (len([hero for hero in self.characters_list if hero.life > 0])!=0):
+                           monster.attack(self)
+                        else:
+                            break
+                    for hero in [character for character in self.characters_list if character.life > 0]:
+                        if hero.cooldown>0:
+                            hero.cooldown-=1
             for hero in [char for char in self.characters_list if char.life > 0]:
                 character_class = hero.__class__
                 if ((hero.life + (character_class.life/4)>=character_class.life)):
