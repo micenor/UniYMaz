@@ -100,7 +100,7 @@ class Character():
                         character.printInfo()
                         i += 1
                     try:
-                        choice =1 #int(input("Who do you want to heal?: "))
+                        choice = int(input("Who do you want to heal?: "))
                         if (1 <= choice <= len(alive)):
                             chosen = alive[choice - 1]
                             test = chosen.life + 2 * self.damage
