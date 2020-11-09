@@ -26,34 +26,34 @@ class Game():
             print("         ---- CURRENT MONSTERS ----")
             print("    ++++++++++++++++++++++++++++++++++++++")
             for n in range(4):
-                enemy = choice(available_enemies)
-                self.stage_enemies.append(enemy())
-                print(("    %s: Stats: %iHP and %iDMG") % (enemy.name, enemy.life, enemy.damage))
+                monster = choice(available_enemies)
+                self.stage_enemies.append(monster())
+                print(("    %s: Stats: %iHP and %iDMG") % (monster.name, monster.life, monster.damage))
             print("    ++++++++++++++++++++++++++++++++++++++")
             while((len([en for en in self.stage_enemies if en.life > 0])!=0) and (len([char for char in self.characters_list if char.life > 0]) != 0)):
                 self.round += 1
                 print("    ------------------------")
                 print("    -    PLAYERS TURN      -")
                 print("    ------------------------")
-                for character in [char for char in self.characters_list if char.life > 0]:
+                for hero in [char for char in self.characters_list if char.life > 0]:
                     if(len([en for en in self.stage_enemies if en.life > 0])!=0):
                         while True:
-                            print(("%s (Player %i). What are you going to do? ((A)ttack/(S)kill)") % (character.name,character.player))
+                            print(("%s (Player %i). What are you going to do? ((A)ttack/(S)kill)") % (hero.name,hero.player))
                             option = input().upper()
                             if ((option!="A") and (option!="S")):
                                 print("That option does not exist, ((A)ttack/(S)kill)")
                             elif (option == "S") :
-                                if character.ability(self):
+                                if hero.ability(self):
                                     break
                             else: break
                         if (option=="A"):
-                            character.attack(self)
+                            hero.attack(self)
                 print("    ------------------------")
                 print("    -    MONSTERS TURN     -")
                 print("    ------------------------")
-                for enemy in [en for en in self.stage_enemies if en.life > 0]:
-                    if (len([character for character in self.characters_list if character.life > 0])!=0):
-                       enemy.attack(self)
+                for monster in [en for en in self.stage_enemies if en.life > 0]:
+                    if (len([hero for hero in self.characters_list if hero.life > 0])!=0):
+                       monster.attack(self)
                     else:
                         break
 #*****************************************End of round***************************************************
@@ -61,14 +61,14 @@ class Game():
                     if hero.cooldown>0:
                         hero.cooldown-=1
 #*****************************************End of stage***************************************************
-            for character in [char for char in self.characters_list if char.life > 0]:
-                character_class = character.__class__
-                if ((character.life + (character_class.life/4)>=character_class.life)):
-                    character.life = character_class.life
+            for hero in [char for char in self.characters_list if char.life > 0]:
+                character_class = hero.__class__
+                if ((hero.life + (character_class.life/4)>=character_class.life)):
+                    hero.life = character_class.life
                 else:
-                    character.life = character.life + character_class.life / 4
-                if character.name=="Procrastinator":
-                    character.cooldown=0
+                    hero.life = hero.life + character_class.life / 4
+                if hero.name=="Procrastinator":
+                    hero.cooldown=0
             if(len([en for en in self.stage_enemies if en.life > 0])==0):
                 print("Stage clear, all enemies defeated")
             else:

@@ -22,7 +22,7 @@ class Character():
                             if (1 <= choice<= len(dead)):
                                 chosen = dead[choice-1]
                                 chosen.life = chosen.__class__.life
-                                print("The ",self.name ," (Player ", chosen.player," ) has been revived.")
+                                print("The ",chosen.name ," (Player ", chosen.player,") has been revived.")
                                 self.cooldown = 4
                                 return True
                                 break
@@ -37,13 +37,13 @@ class Character():
                 print("The skill is currently in cooldown for %s more rounds." % (self.cooldown))
                 return False
         def attack(self,game):
-            enemy_target = choice([en for en in game.stage_enemies if en.life > 0])
+            monster_target = choice([en for en in game.stage_enemies if en.life > 0])
             damage = randrange(self.damage + 1)
-            enemy_target.life = enemy_target.life - damage
+            monster_target.life = monster_target.life - damage
+            if (monster_target.life < 0):
+                monster_target.life=0
             print(("%s (Player %i) did %i damage to %s. %s has %iHP left. ") % (
-            self.name, self.player, damage, enemy_target.name, enemy_target.name, enemy_target.life))
-            if (enemy_target.life <= 0):
-                print("The enemy has died.")
+            self.name, self.player, damage, monster_target.name, monster_target.name, monster_target.life))
 
         def printInfo(self):
             print("The bookworn -> Stats 25 HP and 9DMG")
@@ -58,12 +58,13 @@ class Character():
         cooldown = 0
         def ability(self,game):
             if (self.cooldown==0):
-                enemy_target = choice(game.stage_enemies)
+                monster_target = choice(game.stage_enemies)
                 damage = 1.5 * (self.damage + randrange(self.damage + 1))
-                enemy_target.life = enemy_target.life - damage
-                print(("%s (Player %i) did %i damage to %s. %s has %iHP left. ") % (self.name, self.player, damage, enemy_target.name, enemy_target.name, enemy_target.life))
-                if (enemy_target.life <= 0):
-                    print("The enemy has died.")
+                monster_target.life = monster_target.life - damage
+                if (monster_target.life < 0):
+                    monster_target.life = 0
+                print(("%s (Player %i) did %i damage to %s. %s has %iHP left. ") % (
+                    self.name, self.player, damage, monster_target.name, monster_target.name, monster_target.life))
                 self.cooldown = 3
                 return True
             else:
@@ -71,13 +72,13 @@ class Character():
                 return False
 
         def attack(self,game):
-            enemy_target = choice([en for en in game.stage_enemies if en.life > 0])
+            monster_target = choice([en for en in game.stage_enemies if en.life > 0])
             damage = randrange(self.damage + 1)
-            enemy_target.life = enemy_target.life - damage
+            monster_target.life = monster_target.life - damage
+            if (monster_target.life < 0):
+                monster_target.life=0
             print(("%s (Player %i) did %i damage to %s. %s has %iHP left. ") % (
-            self.name, self.player, damage, enemy_target.name, enemy_target.name, enemy_target.life))
-            if (enemy_target.life <= 0):
-                print("The enemy has died.")
+            self.name, self.player, damage, monster_target.name, monster_target.name, monster_target.life))
 
         def printInfo(self):
             print("The worker -> Stats: 40HP and 10DMG")
@@ -120,13 +121,13 @@ class Character():
                 return False
 
         def attack(self,game):
-            enemy_target = choice([en for en in game.stage_enemies if en.life > 0])
+            monster_target = choice([en for en in game.stage_enemies if en.life > 0])
             damage = randrange(self.damage + 1)
-            enemy_target.life = enemy_target.life - damage
+            monster_target.life = monster_target.life - damage
+            if (monster_target.life < 0):
+                monster_target.life=0
             print(("%s (Player %i) did %i damage to %s. %s has %iHP left. ") % (
-            self.name, self.player, damage, enemy_target.name, enemy_target.name, enemy_target.life))
-            if (enemy_target.life <= 0):
-                print("The enemy has died.")
+            self.name, self.player, damage, monster_target.name, monster_target.name, monster_target.life))
 
         def printInfo(self):
             print("The whatsapper -> Stats: 20HP and 6DMG")
@@ -142,11 +143,12 @@ class Character():
         def ability(self,game):
             if ((self.cooldown==0) and (game.round >=3)):
                 damage = self.damage + randrange(self.damage + 1) + game.actual_stage
-                for enemy_target in [en for en in game.stage_enemies if en.life > 0]:
-                    enemy_target.life = enemy_target.life - damage
-                    print(("%s (Player %i) did %i damage to %s. %s has %iHP left. ") % (self.name, self.player, damage, enemy_target.name, enemy_target.name, enemy_target.life))
-                    if (enemy_target.life <= 0):
-                        print("The enemy has died.")
+                for monster_target in [en for en in game.stage_enemies if en.life > 0]:
+                    monster_target.life = monster_target.life - damage
+                    if (monster_target.life < 0):
+                        monster_target.life = 0
+                    print(("%s (Player %i) did %i damage to %s. %s has %iHP left. ") % (
+                        self.name, self.player, damage, monster_target.name, monster_target.name, monster_target.life))
                 self.cooldown = -1
                 return True
             else:
@@ -157,13 +159,13 @@ class Character():
                 return False
 
         def attack(self,game):
-            enemy_target = choice([en for en in game.stage_enemies if en.life > 0])
+            monster_target = choice([en for en in game.stage_enemies if en.life > 0])
             damage = randrange(self.damage + 1) + (game.round-1)
-            enemy_target.life = enemy_target.life - damage
+            monster_target.life = monster_target.life - damage
+            if (monster_target.life < 0):
+                monster_target.life=0
             print(("%s (Player %i) did %i damage to %s. %s has %iHP left. ") % (
-            self.name, self.player, damage, enemy_target.name, enemy_target.name, enemy_target.life))
-            if (enemy_target.life <= 0):
-                print("The enemy has died.")
+            self.name, self.player, damage, monster_target.name, monster_target.name, monster_target.life))
 
         def printInfo(self):
             print("The procrastinator-> Stats: 30HP and 6DMG")
